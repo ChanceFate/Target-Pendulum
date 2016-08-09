@@ -3,6 +3,7 @@
 public class TapToPlaceParent : MonoBehaviour
 {
     bool placing = true;
+    Vector3 offset = Vector3.up * .22f;
 
     // Initialize the Spatial Mapping to be visualized
     void Start()
@@ -46,7 +47,8 @@ public class TapToPlaceParent : MonoBehaviour
             {
                 // Move this object's parent object to
                 // where the raycast hit the Spatial Mapping mesh.
-                this.transform.parent.position = hitInfo.point;
+                // Offset so the base of the object is on the mesh.
+                this.transform.parent.position = hitInfo.point + offset;
 
                 // Rotate this object's parent object to face the user.
                 Quaternion toQuat = Camera.main.transform.localRotation;
