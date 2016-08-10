@@ -23,7 +23,8 @@ public class TargetCommands : MonoBehaviour
         }
     }
 
-    // Called by SpeechManager when the user says the "Reset world" command
+    // Called by SpeechManager when the user says the "Reset world" command,
+    // or when the pendulum is being placed in the environment.
     void OnReset()
     {
         // If the target has a Rigidbody component, remove it to disable physics.

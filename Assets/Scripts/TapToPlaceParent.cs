@@ -3,7 +3,7 @@
 public class TapToPlaceParent : MonoBehaviour
 {
     bool placing = true;
-    Vector3 offset = Vector3.up * .22f;
+    Vector3 offset = Vector3.zero;
 
     // Initialize the Spatial Mapping to be visualized
     void Start()
@@ -21,6 +21,7 @@ public class TapToPlaceParent : MonoBehaviour
         if (placing)
         {
             SpatialMapping.Instance.DrawVisualMeshes = true;
+            this.transform.parent.BroadcastMessage("OnReset");
         }
         // If the user is not in placing mode, hide the spatial mapping mesh.
         else
