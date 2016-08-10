@@ -23,7 +23,7 @@ public class SpeechManager : MonoBehaviour
             if (focusObject != null)
             {
                 // Call the OnDrop method on just the focused object.
-                focusObject.SendMessage("OnDrop");
+                this.BroadcastMessage("OnDrop");
             }
         });
 
