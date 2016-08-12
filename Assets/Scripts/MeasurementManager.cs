@@ -1,41 +1,45 @@
 ﻿using UnityEngine;
 
 
-class Measurement : MonoBehaviour
+class MeasurementManager : MonoBehaviour
 {
-    public GameObject target { get; private set; }
+    public static MeasurementManager Instance { get; private set; }
+
+    public GameObject target;
     private Rigidbody rb;
 
-    public Vector3 position;
-    public Vector3 velocity;
+    public Vector3 measPos { get; private set; }
+    public Vector3 measVel { get; private set; }
 
-    public Vector3 posSigma;
-    public Vector3 velSigma;
+    public Vector3 measPosSigma { get; private set; }
+    public Vector3 measVelSigma { get; private set; }
 
     void Start()
     {
+        Instance = this;
+
         rb = target.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        pseudoMeasurement();
+        trueMeasurement();
     }
 
     // This method fills the role of getting the target measuremnt.
     // In the actual implementation, this will read measurements from the sensors.
     // Here, simply query the measuremetns of the target GameObject.
-    void pseudoMeasurement()
+    void trueMeasurement()
     {
         // Measured position is the targets global position
-        position = target.transform.position;
+        measPos = target.transform.position;
 
         // Pull the target's rigidbody to find velocity
-        velocity = rb.velocity;
+        measVel = rb.velocity;
 
         // Since this measurement is essentially truth, set the uncertainties to zero.
-        posSigma = Vector3.zero;
-        velSigma = Vector3.zero;
+        measPosSigma = Vector3.zero;
+        measVelSigma = Vector3.zero;
     }
 }
 
