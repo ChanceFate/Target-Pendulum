@@ -27,6 +27,8 @@ public class TrackManager : MonoBehaviour
     void Update()
     {
         truthTracker();
+
+        this.transform.position = trackPosition;
     }
 
 
