@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class TrackManager : MonoBehaviour
 {
     public static TrackManager Instance { get; private set; }
-
-    // Represent the object which is being tracked.
-    // public GameObject TrackedObject { get; private set; }
 
     // Vectors for the track state
     public Vector3 trackPosition { get; private set; }
@@ -14,8 +12,6 @@ public class TrackManager : MonoBehaviour
     // State uncertainties
     public Vector3 trackPosSigma { get; private set; }
     public Vector3 trackVelSigma { get; private set; }
-
-    MeasurementManager measurement;
 
     // Use this for initialization
     void Start()
@@ -27,8 +23,6 @@ public class TrackManager : MonoBehaviour
     void Update()
     {
         truthTracker();
-
-        this.transform.position = trackPosition;
     }
 
 
@@ -38,10 +32,10 @@ public class TrackManager : MonoBehaviour
     // with the measurement alone.
     void truthTracker()
     {
-        trackPosition = measurement.measPos;
-        trackVelocity = measurement.measVel;
-        trackPosSigma = measurement.measPosSigma;
-        trackVelSigma = measurement.measVelSigma;
+        trackPosition = MeasurementManager.Instance.measPos;
+        trackVelocity = MeasurementManager.Instance.measVel;
+        trackPosSigma = MeasurementManager.Instance.measPosSigma;
+        trackVelSigma = MeasurementManager.Instance.measVelSigma;
     }
 }
 

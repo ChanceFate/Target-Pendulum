@@ -27,6 +27,12 @@ public class SpeechManager : MonoBehaviour
             }
         });
 
+        keywords.Add("Highlight Target", () =>
+        {
+            // Call the OnReset method on every descendant object.
+            this.BroadcastMessage("OnHighlight");
+        });
+
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 
 class MeasurementManager : MonoBehaviour
@@ -34,8 +35,14 @@ class MeasurementManager : MonoBehaviour
         // Measured position is the targets global position
         measPos = target.transform.position;
 
-        // Pull the target's rigidbody to find velocity
-        measVel = rb.velocity;
+        // If the target has a rigid body, use it to find velocity
+        if (target.GetComponent<Rigidbody>())
+        {
+            rb = target.GetComponent<Rigidbody>();
+            measVel = rb.velocity;
+        }
+        else
+            measVel = Vector3.zero;
 
         // Since this measurement is essentially truth, set the uncertainties to zero.
         measPosSigma = Vector3.zero;

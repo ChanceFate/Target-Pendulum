@@ -3,7 +3,7 @@
 public class TargetCommands : MonoBehaviour
 {
     GameObject support; 
-    HingeJoint hinge; 
+    HingeJoint joint; 
 
     Vector3 originalPosition;
     Quaternion originalOrientation;
@@ -12,27 +12,28 @@ public class TargetCommands : MonoBehaviour
     void Start()
     {
         // Grab the original local position and orientation of the target when the app starts.
-        originalPosition = this.transform.localPosition;
-        originalOrientation = this.transform.localRotation;
+        originalPosition = this.transform.parent.localPosition;
+        originalOrientation = this.transform.parent.localRotation;
 
         // Initialize support and hinge
         support = GameObject.Find("Support");
-        hinge = support.GetComponent<HingeJoint>();
+        joint = support.GetComponent<HingeJoint>();
     }
 
     // Called by GazeGestureManager when the user performs a Select gesture
     void OnSelect()
     {
-        // If the target has no Rigidbody component, add one to enable physics.
+
         if (!this.GetComponent<Rigidbody>())
         {
             var rigidbody = this.gameObject.AddComponent<Rigidbody>();
+
             rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rigidbody.angularDrag = 0;
 
-            // connect target to hinge.
-            hinge.connectedBody = rigidbody;
+            joint.connectedBody = rigidbody;
         }
+            
     }
 
     // Called by SpeechManager when the user says the "Reset world" command,
@@ -46,9 +47,9 @@ public class TargetCommands : MonoBehaviour
             DestroyImmediate(rigidbody);
         }
 
-        // Put the target back into its original local position and orientation.
-        this.transform.localPosition = originalPosition;
-        this.transform.localRotation = originalOrientation;
+        // Put the target and rod back in their original local position and orientation.
+        this.transform.parent.localPosition = originalPosition;
+        this.transform.parent.localRotation = originalOrientation;
     }
 
     // Called by SpeechManager when the user says the "Drop" command
