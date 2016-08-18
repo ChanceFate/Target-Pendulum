@@ -2,9 +2,9 @@
 
 public class TargetCommands : MonoBehaviour
 {
-    GameObject support;
-    GameObject rod;
-    GameObject target;
+    public GameObject support;
+    public GameObject rod;
+    public GameObject target;
     
     FixedJoint fixJoint;  
     HingeJoint hinge; 
@@ -19,29 +19,27 @@ public class TargetCommands : MonoBehaviour
         originalPosition = this.transform.localPosition;
         originalOrientation = this.transform.localRotation;
 
-        // Initialize support and hinge
-        support = GameObject.Find("Support");
+        // Initialize hing joint
         hinge = support.GetComponent<HingeJoint>();
-
-        // Initialize rod and add a fixed joint
-        rod = GameObject.Find("Rod");
-
-
-        target = GameObject.Find("Target");
     }
 
     // Called by GazeGestureManager when the user performs a Select gesture
     void OnSelect()
     {
 
-        if (!this.GetComponent<Rigidbody>())
+        // if the target doesn't have a rigid body, add one for the target and rod
+        if (!target.GetComponent<Rigidbody>())
         {
-            var rigidbody = this.gameObject.AddComponent<Rigidbody>();
+            // add and initialize rigid bodies for swing children
+            var rigidRod = initRigidbody(rod);
+            var rigidTgt = initRigidbody(target);
 
-            rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            rigidbody.angularDrag = 0;
+            // add fixed joint to rod and connect target
+            fixJoint = rod.AddComponent<FixedJoint>();
+            fixJoint.connectedBody = rigidTgt;
 
-            hinge.connectedBody = rigidbody;
+            // connect rod to support hinge joint
+            hinge.connectedBody = rigidRod;
         }
             
     }
@@ -51,10 +49,10 @@ public class TargetCommands : MonoBehaviour
     void OnReset()
     {
         // If the target has a Rigidbody component, remove it to disable physics.
-        var rigidbody = this.GetComponent<Rigidbody>();
-        if (rigidbody != null)
+        if (target.GetComponent<Rigidbody>() != null)
         {
-            DestroyImmediate(rigidbody);
+            DestroyImmediate(target.GetComponent<Rigidbody>());
+            DestroyImmediate(rod.GetComponent<Rigidbody>());
         }
 
         // Put the target and rod back in their original local position and orientation.
@@ -67,5 +65,16 @@ public class TargetCommands : MonoBehaviour
     {
         // Just do the same logic as a Select gesture.
         OnSelect();
+    }
+
+    // Called to initialize rigid bodies for the children objects
+    Rigidbody initRigidbody(GameObject gObject)
+    {
+        var rigidbody = gObject.gameObject.AddComponent<Rigidbody>();
+
+        rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rigidbody.angularDrag = 0;
+
+        return rigidbody;
     }
 }
