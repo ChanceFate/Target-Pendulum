@@ -2,8 +2,12 @@
 
 public class TargetCommands : MonoBehaviour
 {
-    GameObject support; 
-    HingeJoint joint; 
+    GameObject support;
+    GameObject rod;
+    GameObject target;
+    
+    FixedJoint fixJoint;  
+    HingeJoint hinge; 
 
     Vector3 originalPosition;
     Quaternion originalOrientation;
@@ -12,12 +16,18 @@ public class TargetCommands : MonoBehaviour
     void Start()
     {
         // Grab the original local position and orientation of the target when the app starts.
-        originalPosition = this.transform.parent.localPosition;
-        originalOrientation = this.transform.parent.localRotation;
+        originalPosition = this.transform.localPosition;
+        originalOrientation = this.transform.localRotation;
 
         // Initialize support and hinge
         support = GameObject.Find("Support");
-        joint = support.GetComponent<HingeJoint>();
+        hinge = support.GetComponent<HingeJoint>();
+
+        // Initialize rod and add a fixed joint
+        rod = GameObject.Find("Rod");
+
+
+        target = GameObject.Find("Target");
     }
 
     // Called by GazeGestureManager when the user performs a Select gesture
@@ -31,7 +41,7 @@ public class TargetCommands : MonoBehaviour
             rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rigidbody.angularDrag = 0;
 
-            joint.connectedBody = rigidbody;
+            hinge.connectedBody = rigidbody;
         }
             
     }
@@ -48,8 +58,8 @@ public class TargetCommands : MonoBehaviour
         }
 
         // Put the target and rod back in their original local position and orientation.
-        this.transform.parent.localPosition = originalPosition;
-        this.transform.parent.localRotation = originalOrientation;
+        this.transform.localPosition = originalPosition;
+        this.transform.localRotation = originalOrientation;
     }
 
     // Called by SpeechManager when the user says the "Drop" command
