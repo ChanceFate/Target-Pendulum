@@ -18,8 +18,6 @@ class MeasurementManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-
-        rb = target.GetComponent<Rigidbody>();
     }
 
     void Update()

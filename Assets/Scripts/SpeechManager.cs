@@ -27,10 +27,10 @@ public class SpeechManager : MonoBehaviour
             }
         });
 
-        keywords.Add("Highlight Target", () =>
+        keywords.Add("Track Target", () =>
         {
             // Call the OnReset method on every descendant object.
-            this.BroadcastMessage("OnHighlight");
+            this.BroadcastMessage("OnTrack");
         });
 
         // Tell the KeywordRecognizer about our keywords.

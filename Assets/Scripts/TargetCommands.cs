@@ -5,19 +5,28 @@ public class TargetCommands : MonoBehaviour
     public GameObject support;
     public GameObject rod;
     public GameObject target;
+    public GameObject highlight;
+
+    Rigidbody rigidRod;
+    Rigidbody rigidTgt;
     
     FixedJoint fixJoint;  
     HingeJoint hinge; 
 
-    Vector3 originalPosition;
-    Quaternion originalOrientation;
+    Vector3 oRodPos;
+    Vector3 oTgtPos;
+    Quaternion oRodOrient;
+    Quaternion oTgtOrient;
 
     // Use this for initialization
     void Start()
     {
-        // Grab the original local position and orientation of the target when the app starts.
-        originalPosition = this.transform.localPosition;
-        originalOrientation = this.transform.localRotation;
+        // Grab the original local position and orientation of the target and rod when the app starts.
+        oRodPos = rod.transform.localPosition;
+        oRodOrient = rod.transform.localRotation;
+
+        oTgtPos = target.transform.localPosition;
+        oTgtOrient = target.transform.localRotation;
 
         // Initialize hing joint
         hinge = support.GetComponent<HingeJoint>();
@@ -31,8 +40,8 @@ public class TargetCommands : MonoBehaviour
         if (!target.GetComponent<Rigidbody>())
         {
             // add and initialize rigid bodies for swing children
-            var rigidRod = initRigidbody(rod);
-            var rigidTgt = initRigidbody(target);
+            rigidRod = initRigidbody(rod);
+            rigidTgt = initRigidbody(target);
 
             // add fixed joint to rod and connect target
             fixJoint = rod.AddComponent<FixedJoint>();
@@ -52,12 +61,18 @@ public class TargetCommands : MonoBehaviour
         if (target.GetComponent<Rigidbody>() != null)
         {
             DestroyImmediate(target.GetComponent<Rigidbody>());
+            DestroyImmediate(rod.GetComponent<FixedJoint>());
             DestroyImmediate(rod.GetComponent<Rigidbody>());
         }
 
         // Put the target and rod back in their original local position and orientation.
-        this.transform.localPosition = originalPosition;
-        this.transform.localRotation = originalOrientation;
+        rod.transform.localPosition = oRodPos;
+        rod.transform.localRotation = oRodOrient;
+
+        target.transform.localPosition = oTgtPos;
+        target.transform.localRotation = oTgtOrient;
+
+        highlight.SetActive(false);
     }
 
     // Called by SpeechManager when the user says the "Drop" command
