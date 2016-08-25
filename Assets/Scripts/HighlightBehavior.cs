@@ -4,8 +4,6 @@ using System.Collections;
 public class HighlightBehavior : MonoBehaviour
 {
 
-    Color color = Color.black;
-
 	// Use this for initialization
 	void Start ()
     {
@@ -24,8 +22,13 @@ public class HighlightBehavior : MonoBehaviour
         var align = Vector3.Dot(targetVelocity, gazeDirection);
 
         // choose the highlight color based on the range rate
+        Color color = Color.black;
         color.r = 1 - ((align >= 0) ? align : 0);
         color.g = 1 - ((align >= 0) ? align / 2 : -align);
         color.b = 1 + ((align >= 0) ? 0 : align);
+
+        // Change light to match chosen color
+        Light light = this.gameObject.GetComponent<Light>();
+        light.color = color;
     }
 }
