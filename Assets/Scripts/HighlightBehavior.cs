@@ -4,6 +4,9 @@ using System.Collections;
 public class HighlightBehavior : MonoBehaviour
 {
 
+    // Allow cartoon mouse ears to be placed.
+    public Vector3 earOffset;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -14,7 +17,7 @@ public class HighlightBehavior : MonoBehaviour
 	void Update ()
     {
         // place highlight at tracked target location
-        this.transform.position = TrackManager.Instance.trackPosition;
+        this.transform.position = TrackManager.Instance.trackPosition + earOffset;
 
         // take the dot product of the target velocity and user gaze to determine range rate
         var targetVelocity = TrackManager.Instance.trackVelocity.normalized;
