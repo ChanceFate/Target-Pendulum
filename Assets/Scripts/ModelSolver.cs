@@ -5,18 +5,21 @@ public class ModelSolver : MonoBehaviour
 {
     public Vector3 separation;
 
-	// Use this for initialization
-	void Start ()
+    Transform[] points;
+
+    // Use this for initialization
+    void Start ()
     {
-	
-	}
+        // Form a transform array of solution points
+        points = GetComponentsInChildren<Transform>();
+
+        testSolver(ref points);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        // Form a transform array of solution points
-        Transform[] points = GetComponentsInChildren<Transform>();
-
+        
         testSolver(ref points);
         
 	}
