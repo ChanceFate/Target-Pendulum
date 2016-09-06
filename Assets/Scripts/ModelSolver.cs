@@ -17,7 +17,7 @@ public class ModelSolver : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         
         testSolver(ref points);
