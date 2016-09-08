@@ -17,14 +17,14 @@ public class GeneratePath : MonoBehaviour
 		trail.spline.Clear();
 	}
 
-    void Update()
+    void LateUpdate()
     {
         trail.Clear();
         trail.spline.Clear();
 
         foreach (Transform t in pointList)
         {
-            trail.spline.knots.Add(new Knot(t.position));
+                trail.spline.knots.Add(new Knot(t.position));
         }
 
         trail.spline.Parametrize();

@@ -31,4 +31,7 @@ public class ModelSolver : MonoBehaviour
         for (int i = 2; i < pnt.Length; i++)
             pnt[i].position = pnt[i - 1].position + separation;
     }
+
+    void pendulum_rk4(ref Transform[] pnt)
+    { }
 }
