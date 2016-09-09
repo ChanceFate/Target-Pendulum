@@ -17,7 +17,7 @@ public class HighlightBehavior : MonoBehaviour
 	void Update ()
     {
         // place highlight at tracked target location
-        this.transform.position = TrackManager.Instance.trackPosition + earOffset;
+        this.transform.localPosition = TrackManager.Instance.trackPosition + earOffset;
 
         // take the dot product of the target velocity and user gaze to determine range rate
         var targetVelocity = TrackManager.Instance.trackVelocity.normalized;

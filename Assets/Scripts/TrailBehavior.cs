@@ -11,6 +11,6 @@ public class TrailBehavior : MonoBehaviour
 
     void Update()
     {
-        this.transform.position = TrackManager.Instance.trackPosition;
+        this.transform.localPosition = TrackManager.Instance.trackPosition;
     }
 }

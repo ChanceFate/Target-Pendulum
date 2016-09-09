@@ -30,8 +30,8 @@ class MeasurementManager : MonoBehaviour
     // Here, simply query the measuremetns of the target GameObject.
     void trueMeasurement()
     {
-        // Measured position is the targets global position
-        measPos = target.transform.position;
+        // Measured position is the targets local position
+        measPos = target.transform.localPosition;
 
         // If the target has a rigid body, use it to find velocity
         if (target.GetComponent<Rigidbody>())

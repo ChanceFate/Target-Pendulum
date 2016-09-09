@@ -26,12 +26,24 @@ public class ModelSolver : MonoBehaviour
 
     void testSolver(ref Transform[] pnt)
     {
-        pnt[1].position = TrackManager.Instance.trackPosition;
+        pnt[1].localPosition = TrackManager.Instance.trackPosition;
 
         for (int i = 2; i < pnt.Length; i++)
-            pnt[i].position = pnt[i - 1].position + separation;
+            pnt[i].localPosition = pnt[i - 1].localPosition + separation;
     }
 
-    void pendulum_rk4(ref Transform[] pnt)
-    { }
+    // Fourth order Runge-Kutta solution for a simple, frictionless plane pendulum.
+    void rk4_pendulumSim(float theta, float omega, float timeStep)
+    {
+        // system physical parameters
+        float gravity = Physics.gravity.magnitude;
+
+        //float length = 
+        //float naturalFreq = Mathf.Sqrt()
+
+        // Set up RK terms
+        float k_1a = timeStep * omega;
+        //float k_1b = timeStep * 
+        //float k_2a = timeStep * (omega + )
+    }
 }
