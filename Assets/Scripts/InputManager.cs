@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
             {
                 this.BroadcastMessage("OnDrop");
                 this.BroadcastMessage("OnTrack");
+                this.BroadcastMessage("OnTrajectory");
                 running = true;
             }
             else

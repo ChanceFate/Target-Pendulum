@@ -15,6 +15,8 @@ class MeasurementManager : MonoBehaviour
     public Vector3 measPosSigma { get; private set; }
     public Vector3 measVelSigma { get; private set; }
 
+    public Quaternion measRot { get; private set; }
+    public Vector3 measAngVel { get; private set; }
     void Start()
     {
         Instance = this;
@@ -33,11 +35,16 @@ class MeasurementManager : MonoBehaviour
         // Measured position is the targets local position
         measPos = target.transform.localPosition;
 
+        // Measured rotation to use for solving differential equation
+        measRot = target.transform.localRotation;
+        
+
         // If the target has a rigid body, use it to find velocity
         if (target.GetComponent<Rigidbody>())
         {
             rb = target.GetComponent<Rigidbody>();
             measVel = rb.velocity;
+            measAngVel = rb.angularVelocity;
         }
         else
             measVel = Vector3.zero;

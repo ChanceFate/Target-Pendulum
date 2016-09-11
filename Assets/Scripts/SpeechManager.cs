@@ -11,7 +11,7 @@ public class SpeechManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        keywords.Add("Reset world", () =>
+        keywords.Add("Reset", () =>
         {
             // Call the OnReset method on every descendant object.
             this.BroadcastMessage("OnReset");
@@ -31,6 +31,12 @@ public class SpeechManager : MonoBehaviour
         {
             // Call the OnReset method on every descendant object.
             this.BroadcastMessage("OnTrack");
+        });
+
+        keywords.Add("Trajectory On", () =>
+        {
+            // Call the OnReset method on every descendant object.
+            this.BroadcastMessage("OnTrajectory");
         });
 
         // Tell the KeywordRecognizer about our keywords.
