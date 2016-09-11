@@ -6,6 +6,7 @@ public class TargetCommands : MonoBehaviour
     public GameObject rod;
     public GameObject target;
     public GameObject highlight;
+    public GameObject trajectory;
 
     Rigidbody rigidRod;
     Rigidbody rigidTgt;
@@ -53,7 +54,7 @@ public class TargetCommands : MonoBehaviour
             
     }
 
-    // Called by SpeechManager when the user says the "Reset world" command,
+    // Called by SpeechManager when the user says the "Reset" command,
     // or when the pendulum is being placed in the environment.
     void OnReset()
     {
@@ -73,6 +74,8 @@ public class TargetCommands : MonoBehaviour
         target.transform.localRotation = oTgtOrient;
 
         highlight.SetActive(false);
+        trajectory.SetActive(false);
+
     }
 
     // Called by SpeechManager when the user says the "Drop" command

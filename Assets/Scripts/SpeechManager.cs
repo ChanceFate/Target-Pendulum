@@ -27,13 +27,13 @@ public class SpeechManager : MonoBehaviour
             }
         });
 
-        keywords.Add("Track Target", () =>
+        keywords.Add("Highlight Target", () =>
         {
             // Call the OnReset method on every descendant object.
             this.BroadcastMessage("OnTrack");
         });
 
-        keywords.Add("Trajectory On", () =>
+        keywords.Add("Track Target", () =>
         {
             // Call the OnReset method on every descendant object.
             this.BroadcastMessage("OnTrajectory");
